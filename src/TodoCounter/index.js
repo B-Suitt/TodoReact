@@ -1,8 +1,9 @@
 import './TodoCounter.css'
+
 function TodoCounter({total, completed}){
     return (
 
-        total == completed ? 
+        total === completed ? 
 
         <h1 className='TodoCounter'>
             Felicidades completaste todas las tareas!!

@@ -13,7 +13,8 @@ function CreateTodoButton(){
           
         }
       }>
-        +</button>
+        +
+        </button>
     );
 }
 

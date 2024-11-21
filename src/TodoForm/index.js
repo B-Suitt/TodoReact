@@ -5,16 +5,26 @@ import './TodoForm.css';
 function TodoForm() {
 
     const [newTodoValue, setNewTodoValue] = React.useState('');
+    const [error, setError] = React.useState('')
     
     const {
         setOpenModal,
-        addTodo
+        addTodo,
+        todos
     } = React.useContext(TodoContext);
 
     const onSubmit = (event) => {
         event.preventDefault();
-        addTodo(newTodoValue);
-        setOpenModal(false);
+
+        if(todos.some(todo => todo.text.toLowerCase() === newTodoValue.toLowerCase())){
+            setError('Error: Esta tarea ya existe!!')
+        }else {
+            addTodo(newTodoValue);
+            setNewTodoValue('');
+            setError('');
+            setOpenModal(false);
+        }
+       
     };
     const onCancel = () => {
         setOpenModal(false);
@@ -31,6 +41,7 @@ return(
             value={newTodoValue}
             onChange={onChange}
         />
+        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Mostrar error si el todo es repetido */}
         <div className="TodoForm-buttonContainer">
             <button 
                 type="button"

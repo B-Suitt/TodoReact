@@ -11,6 +11,7 @@ import { Modal } from '../Modal';
 import { TodoContext } from '../TodoContext';
 import { TodoForm } from '../TodoForm';
 
+
 function AppUi() {
   const { 
     loading, 
@@ -24,11 +25,23 @@ function AppUi() {
 
   return (
     <>
+      <h1 style={{
+        fontSize:'3rem',
+        fontWeight:'bold',
+        textAlign: 'center',
+        margin: '20px 0'
+      }}>TODO LIST</h1>
       <TodoCounter />
-      <TodoSearch />
+       
+        <TodoSearch />
+      
 
       <TodoList>
-        {loading && <TodosLoading />}
+        {loading && 
+          Array(5) //Numero de skeletons a mostrar
+          .fill(0)
+          .map((_,index) => <TodosLoading key={index}/>)
+          }
         {error && <TodosError />}
         {!loading && searchedTodos.length === 0 && <TodosEmpty />}
 
@@ -44,8 +57,8 @@ function AppUi() {
       </TodoList>
 
       <CreateTodoButton
-        setOpenModal={setOpenModal}
-      />
+          setOpenModal={setOpenModal}
+        />
 
       {openModal && (
         <Modal>
